@@ -4,7 +4,7 @@ PCAP Parser Module
 Handles parsing of PCAP files using scapy and extracting network traffic data.
 """
 
-from scapy.all import rdpcap, IP, TCP, UDP, DNS, IPv6
+from scapy.all import rdpcap, IP, TCP, UDP, DNS, IPv6, ICMP
 from datetime import datetime
 from typing import List, Dict, Any, Optional
 import logging

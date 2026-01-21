@@ -1,0 +1,37 @@
+PCAP Anomaly Detector Results
+==================================================
+Analysis completed: 2026-01-21 14:03:16
+Total anomalies found: 5
+
+SUSPICIOUS DOMAINS
+--------------------
+Domain: botnet-c2.cf
+Risk Score: 3
+Timestamp: 2026-01-21 14:02:57.143166
+Reasons: Matches pattern: .*\.cf$; Contains keyword: botnet; Contains keyword: c2
+Source IP: 192.168.1.100
+
+Domain: malware-site.tk
+Risk Score: 2
+Timestamp: 2026-01-21 14:02:57.141057
+Reasons: Matches pattern: .*\.tk$; Contains keyword: malware
+Source IP: 192.168.1.100
+
+Domain: phishing-bad.ga
+Risk Score: 2
+Timestamp: 2026-01-21 14:02:57.141483
+Reasons: Matches pattern: .*\.ga$; Contains keyword: phishing
+Source IP: 192.168.1.100
+
+Domain: random-abc123.ml
+Risk Score: 1
+Timestamp: 2026-01-21 14:02:57.141266
+Reasons: Matches pattern: .*\.ml$
+Source IP: 192.168.1.100
+
+Domain: suspicious-domain.bit
+Risk Score: 1
+Timestamp: 2026-01-21 14:02:57.143383
+Reasons: Matches pattern: .*\.bit$
+Source IP: 192.168.1.100
+
