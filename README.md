@@ -2,118 +2,89 @@
 
 A Python-based network traffic analyzer that parses PCAP files and detects suspicious domains and unusual traffic spikes.
 
+## Quick Start
+
+```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Basic analysis
+python -c "from pcap_analyzer.cli import cli; cli(['analyze', 'traffic.pcap'])"
+
+# Advanced analysis with all detection features
+python -c "from pcap_analyzer.cli import cli; cli(['analyze', 'traffic.pcap', '--advanced'])"
+
+# Save results
+python -c "from pcap_analyzer.cli import cli; cli(['analyze', 'traffic.pcap', '--output', 'results.txt'])"
+```
+
 ## Features
 
-- **PCAP Parsing**: Extract network traffic data from PCAP files using Scapy
-- **Suspicious Domain Detection**: Identify potentially malicious domains using:
-  - Pattern matching for suspicious TLDs and formats
-  - DGA (Domain Generation Algorithm) detection
-  - High entropy domain detection
-  - Suspicious keyword identification
-- **Traffic Spike Detection**: Detect unusual traffic patterns including:
-  - Volume spikes over time
-  - Abnormal IP activity
-  - Unusual port usage
-- **CLI Interface**: Easy-to-use command-line interface with colored output
-- **Export Results**: Save analysis results to text files
+- **PCAP Parsing**: Extract network traffic data using Scapy
+- **Suspicious Domain Detection**: Pattern matching, DGA detection, entropy analysis
+- **Traffic Spike Detection**: Volume spikes, IP activity, port usage anomalies
+- **Advanced Detection**: Data exfiltration, malware indicators, network anomalies
+- **CLI Interface**: Colored output with tables and risk assessment
+- **Export Results**: Save detailed findings to text files
+
+## Detection Capabilities
+
+### Basic Analysis
+- Suspicious domains (malware TLDs, DGA, high entropy)
+- Traffic spikes (volume, IP activity, port usage)
+
+### Advanced Analysis (`--advanced`)
+- **Data Exfiltration**: Large outbound transfers, high-frequency connections
+- **Malware Indicators**: Beaconing patterns, suspicious domains
+- **Network Anomalies**: Rare protocols, port scans, IP anomalies
 
 ## Installation
 
-1. Clone the repository:
 ```bash
+# Clone and setup
 git clone <repository-url>
 cd pcap-anomaly-detector
-```
-
-2. Install dependencies:
-```bash
 pip install -r requirements.txt
-```
 
-3. Install the package in development mode:
-```bash
+# Optional: Install in development mode
 pip install -e .
 ```
 
-## Usage
-
-### Basic Analysis
-
-Analyze a PCAP file for both suspicious domains and traffic spikes:
+## Usage Examples
 
 ```bash
-python -m pcap_analyzer analyze traffic.pcap
+# Basic commands
+python -c "from pcap_analyzer.cli import cli; cli(['info', 'traffic.pcap'])"                    # File info
+python -c "from pcap_analyzer.cli import cli; cli(['analyze', 'traffic.pcap'])"              # Full analysis
+python -c "from pcap_analyzer.cli import cli; cli(['analyze', 'traffic.pcap', '--verbose'])" # Verbose mode
+
+# Targeted analysis
+python -c "from pcap_analyzer.cli import cli; cli(['analyze', 'traffic.pcap', '--domains-only'])"    # Domains only
+python -c "from pcap_analyzer.cli import cli; cli(['analyze', 'traffic.pcap', '--traffic-only'])"    # Traffic only
+python -c "from pcap_analyzer.cli import cli; cli(['analyze', 'traffic.pcap', '--exfil-only'])"      # Exfiltration only
+python -c "from pcap_analyzer.cli import cli; cli(['analyze', 'traffic.pcap', '--malware-only'])"    # Malware only
+python -c "from pcap_analyzer.cli import cli; cli(['analyze', 'traffic.pcap', '--anomaly-only'])"    # Anomalies only
+
+# Output options
+python -c "from pcap_analyzer.cli import cli; cli(['analyze', 'traffic.pcap', '--output', 'results.txt'])" # Save results
 ```
 
-### Advanced Options
-
-```bash
-# Save results to a file
-python -m pcap_analyzer analyze traffic.pcap --output results.txt
-
-# Enable verbose logging
-python -m pcap_analyzer analyze traffic.pcap --verbose
-
-# Only analyze suspicious domains
-python -m pcap_analyzer analyze traffic.pcap --domains-only
-
-# Only analyze traffic spikes
-python -m pcap_analyzer analyze traffic.pcap --traffic-only
-
-# Get basic PCAP file information
-python -m pcap_analyzer info traffic.pcap
-```
-
-### Python API
+## Python API
 
 ```python
 from pcap_analyzer import PcapAnomalyDetector
 
-# Initialize the detector
+# Initialize and analyze
 detector = PcapAnomalyDetector(verbose=True)
-
-# Analyze a PCAP file
 results = detector.analyze_file('traffic.pcap')
 
 # Get summary
 print(detector.get_summary(results))
-
-# Access specific results
-print(f"Suspicious domains: {len(results['suspicious_domains'])}")
-print(f"Traffic spikes: {len(results['traffic_spikes'])}")
 ```
 
-## Detection Methods
+## Documentation
 
-### Suspicious Domain Detection
-
-The detector identifies suspicious domains using multiple techniques:
-
-1. **Pattern Matching**: Detects domains matching known suspicious patterns
-2. **TLD Analysis**: Flags domains from free TLDs often used maliciously (.tk, .ml, .ga, .cf)
-3. **DGA Detection**: Identifies domains generated by algorithms
-4. **Entropy Analysis**: Detects randomly-looking domains
-5. **Keyword Matching**: Flags domains containing suspicious keywords
-6. **Structural Analysis**: Identifies unusually long domains or excessive subdomains
-
-### Traffic Spike Detection
-
-Traffic anomalies are detected using statistical analysis:
-
-1. **Volume Spikes**: Identifies unusual increases in traffic volume over time
-2. **IP Activity Spikes**: Detects abnormal traffic from specific source/destination IPs
-3. **Port Usage Spikes**: Identifies unusual activity on specific ports
-4. **Statistical Thresholds**: Uses standard deviation to identify outliers
-
-## Output
-
-The analyzer provides:
-
-- **Colored terminal output** for easy visualization
-- **Tabulated results** showing top anomalies
-- **Risk assessment** based on anomaly count
-- **Detailed explanations** for each finding
-- **Export capability** for further analysis
+See [DOCUMENTATION.md](DOCUMENTATION.md) for detailed usage, configuration, and examples.
 
 ## Requirements
 
@@ -122,66 +93,8 @@ The analyzer provides:
 - click >= 8.1.0
 - colorama >= 0.4.6
 - tabulate >= 0.9.0
-- python-dateutil >= 2.8.2
-
-## Examples
-
-### Example Output
-
-```
-PCAP Anomaly Detector
-==================================================
-✓ Successfully parsed 15420 packets
-
-Analyzing suspicious domains...
-Found 3 suspicious domains
-
-Top Suspicious Domains:
-+-------------------------+-------------+------------+------------------------+
-| Domain                  | Risk Score  | Timestamp  | Reasons                |
-+=========================+=============+============+========================+
-| malware-site.tk         | 3           | 14:32:15   | Matches pattern: .*\.tk$ |
-|                         |             |            | Contains keyword: malware |
-+-------------------------+-------------+------------+------------------------+
-| random-abc123.ml        | 2           | 14:33:42   | Matches pattern: .*\.ml$ |
-|                         |             |            | High entropy (random-looking) |
-+-------------------------+-------------+------------+------------------------+
-
-Analyzing traffic spikes...
-Found 2 traffic spikes
-
-Top Traffic Spikes:
-+---------------------+-------------+------------+------------+----------------------------------------+
-| Type                | Target      | Severity   | Timestamp  | Description                            |
-+=====================+=============+============+============+========================================+
-| Volume Spike        | N/A         | 3.2σ       | 14:35:12   | Traffic spike: 5242880 bytes (mean:   |
-|                     |             |            |            | 1048576, +3.2σ)                        |
-+---------------------+-------------+------------+------------+----------------------------------------+
-
-Analysis Summary:
-==================================================
-Total packets analyzed: 15420
-DNS queries found: 89
-Suspicious domains: 3
-Traffic spikes: 2
-Total anomalies: 5
-
-⚠ Medium risk - multiple anomalies detected
-```
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Disclaimer
-
-This tool is designed for network security analysis and educational purposes. Always ensure you have proper authorization before analyzing network traffic.
+MIT License - see LICENSE file for details.
 
