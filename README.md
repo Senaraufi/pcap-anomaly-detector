@@ -1,5 +1,12 @@
 # PCAP Anomaly Detector
 
+![Python Version](https://img.shields.io/badge/python-3.7+-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-yellow.svg)
+![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)
+![Issues](https://img.shields.io/badge/issues-0-green.svg)
+![Stars](https://img.shields.io/badge/stars-0-grey.svg)
+![Last Commit](https://img.shields.io/badge/last%20commit-today-grey.svg)
+
 A Python-based network traffic analyzer that parses PCAP files and detects suspicious domains and unusual traffic spikes.
 
 ## Quick Start
