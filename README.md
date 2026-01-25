@@ -11,7 +11,21 @@ A Python-based network traffic analyzer that parses PCAP files and detects suspi
 
 ## Quick Start
 
-### Easy Start Script (Recommended)
+### Professional Interactive Tool (Recommended)
+
+```bash
+# Launch the professional security tool interface
+./interactive-tool.sh
+
+# Features:
+# - Interactive menu system
+# - Professional security tool appearance
+# - File selection interface
+# - Progress indicators
+# - System status monitoring
+```
+
+### Quick Start Script
 
 ```bash
 # Use the start script - handles everything automatically!
@@ -70,7 +84,27 @@ pip install -e .
 
 ## Usage Examples
 
-### Using Start Script (Recommended)
+### Professional Interactive Tool
+
+```bash
+# Launch the professional interface
+./interactive-tool.sh
+
+# Interactive menu options:
+# 1) Quick Analysis           - Fast scan with basic detection
+# 2) Advanced Analysis        - Comprehensive security scan
+# 3) Domain Analysis          - Focus on suspicious domains
+# 4) Traffic Analysis         - Analyze traffic patterns
+# 5) Malware Detection        - Scan for malware indicators
+# 6) Exfiltration Check        - Detect data theft attempts
+# 7) Network Anomalies        - Find unusual network activity
+# 8) File Information          - Show PCAP file details
+# 9) Test with Sample         - Run analysis on test data
+# 10) System Status            - Check tool configuration
+# 0) Exit                     - Terminate session
+```
+
+### Using Start Script
 
 ```bash
 # Quick test
