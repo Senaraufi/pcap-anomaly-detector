@@ -11,6 +11,17 @@ A Python-based network traffic analyzer that parses PCAP files and detects suspi
 
 ## Quick Start
 
+### Easy Start Script (Recommended)
+
+```bash
+# Use the start script - handles everything automatically!
+./start.sh test                    # Run with test file
+./start.sh advanced traffic.pcap    # Advanced analysis
+./start.sh help                     # See all options
+```
+
+### Manual Setup
+
 ```bash
 # Install dependencies
 pip install -r requirements.txt
@@ -58,6 +69,33 @@ pip install -e .
 ```
 
 ## Usage Examples
+
+### Using Start Script (Recommended)
+
+```bash
+# Quick test
+./start.sh test
+
+# Basic commands
+./start.sh info traffic.pcap                    # File info
+./start.sh analyze traffic.pcap                # Full analysis
+./start.sh advanced traffic.pcap --verbose     # Advanced analysis + verbose
+
+# Targeted analysis
+./start.sh domains traffic.pcap                # Domains only
+./start.sh traffic traffic.pcap                # Traffic only
+./start.sh exfil traffic.pcap                  # Exfiltration only
+./start.sh malware traffic.pcap                # Malware only
+./start.sh anomalies traffic.pcap              # Anomalies only
+
+# Save results
+./start.sh advanced traffic.pcap --output report.txt
+
+# Setup only
+./start.sh setup                               # Setup environment
+```
+
+### Manual Commands
 
 ```bash
 # Basic commands
